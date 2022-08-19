@@ -2,14 +2,14 @@
 
 namespace ProOfficeSolutions\AmbankEConsent;
 
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 
 class AmbankEConsent
 {
     public function authenticate()
     {
-        $url = config('ambank-e-consent.url') . '/api/oauth/v2.0/token';
+        $url = config('ambank-e-consent.url').'/api/oauth/v2.0/token';
 
         $response = Http::asForm()
             ->withBasicAuth(config('ambank-e-consent.client_id'), config('ambank-e-consent.client_secret'))
@@ -34,7 +34,7 @@ class AmbankEConsent
         $token = Cache::remember('duitnow_qr_token', config('ambank-e-consent.token_expiry'), fn () => $this->authenticate());
 
         $headers = [
-            'Authorization' => 'Bearer ' . $token,
+            'Authorization' => 'Bearer '.$token,
             'Authentication' => $token,
             'AmBank-Timestamp' => now()->format('dmYHis'),
             'Channel-Token' => config('ambank-e-consent.channel_token'),
@@ -46,14 +46,14 @@ class AmbankEConsent
             'QRHeight' => 512,
         ];
 
-        $url = config('ambank-e-consent.url') . "/EConsent/v1.0/RTD/$srcRefNo";
+        $url = config('ambank-e-consent.url')."/EConsent/v1.0/RTD/$srcRefNo";
         // Http::post()
     }
 
     protected function getSrcRefNo()
     {
-        $sequence = str_pad(Cache::increment('duitnow_e_consent'), 6, "0", STR_PAD_LEFT);
+        $sequence = str_pad(Cache::increment('duitnow_e_consent'), 6, '0', STR_PAD_LEFT);
 
-        return config('ambank-e-consent.prefix_id') . date('dmY') . $sequence;
+        return config('ambank-e-consent.prefix_id').date('dmY').$sequence;
     }
 }
