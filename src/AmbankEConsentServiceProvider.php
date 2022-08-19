@@ -1,12 +1,11 @@
 <?php
 
-namespace VendorName\Skeleton;
+namespace ProOfficeSolutions\AmbankEConsent;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use VendorName\Skeleton\Commands\SkeletonCommand;
 
-class SkeletonServiceProvider extends PackageServiceProvider
+class AmbankEConsentServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
@@ -16,10 +15,8 @@ class SkeletonServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('skeleton')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_skeleton_table')
-            ->hasCommand(SkeletonCommand::class);
+            ->name('ambank-e-consent')
+            ->hasConfigFile('ambank-e-consent')
+            ->hasMigration('create_e_consent_transactions_table');
     }
 }
